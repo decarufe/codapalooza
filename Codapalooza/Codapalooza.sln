@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codapalooza", "Codapalooza\Codapalooza.csproj", "{572B206C-88F1-4F8A-8DBF-4D26A947E81E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codapalooza.Tests", "Codapalooza.Tests\Codapalooza.Tests.csproj", "{F2DFE049-E152-41FC-9356-FBAD42A52119}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Codapalooza.Tests\\Codapalooza.Tests.csproj
+		SccProjectName1 = Codapalooza.Tests
+		SccLocalPath1 = Codapalooza.Tests
+		SccProjectUniqueName2 = Codapalooza\\Codapalooza.csproj
+		SccProjectName2 = Codapalooza
+		SccLocalPath2 = Codapalooza
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{572B206C-88F1-4F8A-8DBF-4D26A947E81E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{572B206C-88F1-4F8A-8DBF-4D26A947E81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{572B206C-88F1-4F8A-8DBF-4D26A947E81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{572B206C-88F1-4F8A-8DBF-4D26A947E81E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2DFE049-E152-41FC-9356-FBAD42A52119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2DFE049-E152-41FC-9356-FBAD42A52119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2DFE049-E152-41FC-9356-FBAD42A52119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2DFE049-E152-41FC-9356-FBAD42A52119}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
