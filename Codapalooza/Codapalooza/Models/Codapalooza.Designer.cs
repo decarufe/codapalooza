@@ -80,6 +80,22 @@ namespace Codapalooza.Models
             }
         }
         private ObjectSet<Participant> _Participants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Project> Projects
+        {
+            get
+            {
+                if ((_Projects == null))
+                {
+                    _Projects = base.CreateObjectSet<Project>("Projects");
+                }
+                return _Projects;
+            }
+        }
+        private ObjectSet<Project> _Projects;
 
         #endregion
         #region AddTo Methods
@@ -90,6 +106,14 @@ namespace Codapalooza.Models
         public void AddToParticipants(Participant participant)
         {
             base.AddObject("Participants", participant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Projects EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProjects(Project project)
+        {
+            base.AddObject("Projects", project);
         }
 
         #endregion
@@ -114,16 +138,16 @@ namespace Codapalooza.Models
         /// Create a new Participant object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userName">Initial value of the UserName property.</param>
         /// <param name="firstName">Initial value of the FirstName property.</param>
         /// <param name="lastName">Initial value of the LastName property.</param>
-        /// <param name="email">Initial value of the Email property.</param>
-        public static Participant CreateParticipant(global::System.Guid id, global::System.String firstName, global::System.String lastName, global::System.String email)
+        public static Participant CreateParticipant(global::System.Guid id, global::System.String userName, global::System.String firstName, global::System.String lastName)
         {
             Participant participant = new Participant();
             participant.Id = id;
+            participant.UserName = userName;
             participant.FirstName = firstName;
             participant.LastName = lastName;
-            participant.Email = email;
             return participant;
         }
 
@@ -156,6 +180,30 @@ namespace Codapalooza.Models
         private global::System.Guid _Id;
         partial void OnIdChanging(global::System.Guid value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+            set
+            {
+                OnUserNameChanging(value);
+                ReportPropertyChanging("UserName");
+                _UserName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserName");
+                OnUserNameChanged();
+            }
+        }
+        private global::System.String _UserName;
+        partial void OnUserNameChanging(global::System.String value);
+        partial void OnUserNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -204,30 +252,165 @@ namespace Codapalooza.Models
         private global::System.String _LastName;
         partial void OnLastNameChanging(global::System.String value);
         partial void OnLastNameChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CodapaloozaModel", Name="Project")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Project : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Project object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="projectName">Initial value of the ProjectName property.</param>
+        /// <param name="desciption">Initial value of the Desciption property.</param>
+        /// <param name="elevetorPitch">Initial value of the ElevetorPitch property.</param>
+        /// <param name="technologies">Initial value of the Technologies property.</param>
+        public static Project CreateProject(global::System.Guid id, global::System.String projectName, global::System.String desciption, global::System.String elevetorPitch, global::System.String technologies)
+        {
+            Project project = new Project();
+            project.Id = id;
+            project.ProjectName = projectName;
+            project.Desciption = desciption;
+            project.ElevetorPitch = elevetorPitch;
+            project.Technologies = technologies;
+            return project;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Email
+        public global::System.String ProjectName
         {
             get
             {
-                return _Email;
+                return _ProjectName;
             }
             set
             {
-                OnEmailChanging(value);
-                ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Email");
-                OnEmailChanged();
+                OnProjectNameChanging(value);
+                ReportPropertyChanging("ProjectName");
+                _ProjectName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ProjectName");
+                OnProjectNameChanged();
             }
         }
-        private global::System.String _Email;
-        partial void OnEmailChanging(global::System.String value);
-        partial void OnEmailChanged();
+        private global::System.String _ProjectName;
+        partial void OnProjectNameChanging(global::System.String value);
+        partial void OnProjectNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Desciption
+        {
+            get
+            {
+                return _Desciption;
+            }
+            set
+            {
+                OnDesciptionChanging(value);
+                ReportPropertyChanging("Desciption");
+                _Desciption = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Desciption");
+                OnDesciptionChanged();
+            }
+        }
+        private global::System.String _Desciption;
+        partial void OnDesciptionChanging(global::System.String value);
+        partial void OnDesciptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ElevetorPitch
+        {
+            get
+            {
+                return _ElevetorPitch;
+            }
+            set
+            {
+                OnElevetorPitchChanging(value);
+                ReportPropertyChanging("ElevetorPitch");
+                _ElevetorPitch = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ElevetorPitch");
+                OnElevetorPitchChanged();
+            }
+        }
+        private global::System.String _ElevetorPitch;
+        partial void OnElevetorPitchChanging(global::System.String value);
+        partial void OnElevetorPitchChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Technologies
+        {
+            get
+            {
+                return _Technologies;
+            }
+            set
+            {
+                OnTechnologiesChanging(value);
+                ReportPropertyChanging("Technologies");
+                _Technologies = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Technologies");
+                OnTechnologiesChanged();
+            }
+        }
+        private global::System.String _Technologies;
+        partial void OnTechnologiesChanging(global::System.String value);
+        partial void OnTechnologiesChanged();
 
         #endregion
     

@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Codapalooza.Models;
+using Codapalooza.Models.Security;
 
 namespace Codapalooza.Controllers
 {
@@ -87,6 +89,16 @@ namespace Codapalooza.Controllers
         if (createStatus == MembershipCreateStatus.Success)
         {
           FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
+          var codapaloozaEntities = new CodapaloozaEntities();
+          var participant = new Participant()
+          {
+            Id = Guid.NewGuid(),
+            UserName = model.UserName,
+            FirstName = model.FirstName,
+            LastName = model.LastName
+          };
+          codapaloozaEntities.Participants.AddObject(participant);
+          codapaloozaEntities.SaveChanges();
           return RedirectToAction("Index", "Home");
         }
         else
