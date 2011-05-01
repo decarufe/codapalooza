@@ -4,34 +4,57 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CodapaloozaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="CodapaloozaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="CodapaloozaModelStoreContainer">
           <EntitySet Name="Participant" EntityType="CodapaloozaModel.Store.Participant" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Project" EntityType="CodapaloozaModel.Store.Project" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
         <EntityType Name="Participant">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
           <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
-      </Schema></edmx:StorageModels>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Desciption" Type="ntext" Nullable="false" />
+          <Property Name="ElevetorPitch" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Technologies" Type="ntext" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CodapaloozaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="CodapaloozaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Participants" EntityType="CodapaloozaModel.Participant" />
+          <EntitySet Name="Projects" EntityType="CodapaloozaModel.Project" />
         </EntityContainer>
         <EntityType Name="Participant">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Desciption" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ElevetorPitch" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Technologies" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -41,9 +64,16 @@
         <EntityContainerMapping StorageEntityContainer="CodapaloozaModelStoreContainer" CdmEntityContainer="CodapaloozaEntities">
           <EntitySetMapping Name="Participants"><EntityTypeMapping TypeName="CodapaloozaModel.Participant"><MappingFragment StoreEntitySet="Participant">
             <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserName" ColumnName="UserName" />
             <ScalarProperty Name="FirstName" ColumnName="FirstName" />
             <ScalarProperty Name="LastName" ColumnName="LastName" />
-            <ScalarProperty Name="Email" ColumnName="Email" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects"><EntityTypeMapping TypeName="CodapaloozaModel.Project"><MappingFragment StoreEntitySet="Project">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+            <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+            <ScalarProperty Name="ElevetorPitch" ColumnName="ElevetorPitch" />
+            <ScalarProperty Name="Technologies" ColumnName="Technologies" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
@@ -64,10 +94,6 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram Name="Codapalooza">
-        <EntityTypeShape EntityType="CodapaloozaModel.Participant" Width="1.5" PointX="0.75" PointY="0.75" Height="1.807985026041667" IsExpanded="true" />
-      </Diagram>
-    </Diagrams>
+    <Diagrams></Diagrams>
   </Designer>
 </edmx:Edmx>

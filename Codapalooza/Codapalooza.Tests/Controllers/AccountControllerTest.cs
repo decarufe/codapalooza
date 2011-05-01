@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using Codapalooza.Models.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Codapalooza;
 using Codapalooza.Controllers;
