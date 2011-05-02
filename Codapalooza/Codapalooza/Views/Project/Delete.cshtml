@@ -1,0 +1,32 @@
+﻿@model Codapalooza.Models.Project
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Project</legend>
+
+    <div class="display-label">ProjectName</div>
+    <div class="display-field">@Model.ProjectName</div>
+
+    <div class="display-label">Desciption</div>
+    <div class="display-field">@Model.Desciption</div>
+
+    <div class="display-label">ElevetorPitch</div>
+    <div class="display-field">@Model.ElevetorPitch</div>
+
+    <div class="display-label">Technologies</div>
+    <div class="display-field">@Model.Technologies</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+
