@@ -1,0 +1,28 @@
+﻿@model Codapalooza.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Project</legend>
+
+    <div class="display-label">ProjectName</div>
+    <div class="display-field">@Model.ProjectName</div>
+
+    <div class="display-label">Desciption</div>
+    <div class="display-field">@Model.Desciption</div>
+
+    <div class="display-label">ElevetorPitch</div>
+    <div class="display-field">@Model.ElevetorPitch</div>
+
+    <div class="display-label">Technologies</div>
+    <div class="display-field">@Model.Technologies</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
