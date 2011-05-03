@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.ApplicationServices;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
@@ -88,12 +89,13 @@ namespace Codapalooza.Controllers
 
         if (createStatus == MembershipCreateStatus.Success)
         {
+          Roles.AddUserToRole(model.UserName, "Participant");
           FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
           var codapaloozaEntities = new CodapaloozaEntities();
           var participant = new Participant()
           {
             Id = Guid.NewGuid(),
-            UserName = model.UserName,
+            UserName = User.Identity.Name,
             FirstName = model.FirstName,
             LastName = model.LastName
           };

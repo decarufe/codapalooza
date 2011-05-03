@@ -16,6 +16,11 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
+#region EDM Relationship Metadata
+
+[assembly: EdmRelationshipAttribute("CodapaloozaModel", "FK_Project_Participant", "Participant", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Codapalooza.Models.Participant), "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Codapalooza.Models.Project), true)]
+
+#endregion
 
 namespace Codapalooza.Models
 {
@@ -255,6 +260,31 @@ namespace Codapalooza.Models
 
         #endregion
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CodapaloozaModel", "FK_Project_Participant", "Project")]
+        public EntityCollection<Project> Projects
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Project>("CodapaloozaModel.FK_Project_Participant", "Project");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Project>("CodapaloozaModel.FK_Project_Participant", "Project", value);
+                }
+            }
+        }
+
+        #endregion
     }
     
     /// <summary>
@@ -275,7 +305,8 @@ namespace Codapalooza.Models
         /// <param name="desciption">Initial value of the Desciption property.</param>
         /// <param name="elevetorPitch">Initial value of the ElevetorPitch property.</param>
         /// <param name="technologies">Initial value of the Technologies property.</param>
-        public static Project CreateProject(global::System.Guid id, global::System.String projectName, global::System.String desciption, global::System.String elevetorPitch, global::System.String technologies)
+        /// <param name="proposerId">Initial value of the ProposerId property.</param>
+        public static Project CreateProject(global::System.Guid id, global::System.String projectName, global::System.String desciption, global::System.String elevetorPitch, global::System.String technologies, global::System.Guid proposerId)
         {
             Project project = new Project();
             project.Id = id;
@@ -283,6 +314,7 @@ namespace Codapalooza.Models
             project.Desciption = desciption;
             project.ElevetorPitch = elevetorPitch;
             project.Technologies = technologies;
+            project.ProposerId = proposerId;
             return project;
         }
 
@@ -411,9 +443,74 @@ namespace Codapalooza.Models
         private global::System.String _Technologies;
         partial void OnTechnologiesChanging(global::System.String value);
         partial void OnTechnologiesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ProposerId
+        {
+            get
+            {
+                return _ProposerId;
+            }
+            set
+            {
+                OnProposerIdChanging(value);
+                ReportPropertyChanging("ProposerId");
+                _ProposerId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProposerId");
+                OnProposerIdChanged();
+            }
+        }
+        private global::System.Guid _ProposerId;
+        partial void OnProposerIdChanging(global::System.Guid value);
+        partial void OnProposerIdChanged();
 
         #endregion
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CodapaloozaModel", "FK_Project_Participant", "Participant")]
+        public Participant Participant
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Participant>("CodapaloozaModel.FK_Project_Participant", "Participant").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Participant>("CodapaloozaModel.FK_Project_Participant", "Participant").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Participant> ParticipantReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Participant>("CodapaloozaModel.FK_Project_Participant", "Participant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Participant>("CodapaloozaModel.FK_Project_Participant", "Participant", value);
+                }
+            }
+        }
+
+        #endregion
     }
 
     #endregion

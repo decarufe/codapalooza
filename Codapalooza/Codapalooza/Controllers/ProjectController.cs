@@ -3,21 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Codapalooza.Models;
 
 namespace Codapalooza.Controllers
 {
   public class ProjectController : Controller
   {
+    private readonly CodapaloozaEntities _db;
+
+    public ProjectController()
+    {
+      _db = new CodapaloozaEntities();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing)
+      {
+        _db.Dispose();
+      }
+    }
+
     //
     // GET: /Project/
-
+    [Authorize(Roles = "Participant")]
     public ActionResult Index()
     {
-      using (var codapaloozaEntities = new CodapaloozaEntities())
-      {
-        return View(codapaloozaEntities.Projects.ToArray());
-      }
+      return View(_db.Projects.ToArray());
     }
 
     //
@@ -25,16 +38,13 @@ namespace Codapalooza.Controllers
 
     public ActionResult Details(Guid id)
     {
-      using (var codapaloozaEntities = new CodapaloozaEntities())
-      {
-        var project = codapaloozaEntities.Projects.Single(p => p.Id == id);
-        return View(project);
-      }
+      var project = _db.Projects.Single(p => p.Id == id);
+      return View(project);
     }
 
     //
     // GET: /Project/Create
-
+    [Authorize(Roles = "Participant")]
     public ActionResult Create()
     {
       return View();
@@ -44,6 +54,7 @@ namespace Codapalooza.Controllers
     // POST: /Project/Create
 
     [HttpPost]
+    [Authorize(Roles = "Participant")]
     public ActionResult Create(Project project)
     {
       try
@@ -51,11 +62,10 @@ namespace Codapalooza.Controllers
         if (project.Id == Guid.Empty)
           project.Id = Guid.NewGuid();
 
-        using (var codapaloozaEntities = new CodapaloozaEntities())
-        {
-        codapaloozaEntities.AddToProjects(project);
-        codapaloozaEntities.SaveChanges();
-        }
+        var participant = _db.Participants.Single(p => p.UserName == User.Identity.Name);
+        project.ProposerId = participant.Id;
+        _db.AddToProjects(project);
+        _db.SaveChanges();
 
         return RedirectToAction("Index");
       }
@@ -67,30 +77,25 @@ namespace Codapalooza.Controllers
 
     //
     // GET: /Project/Edit/5
-
+    [Authorize(Roles = "Participant")]
     public ActionResult Edit(Guid id)
     {
-      using (var codapaloozaEntities = new CodapaloozaEntities())
-      {
-        var project = codapaloozaEntities.Projects.Single(p => p.Id == id);
-        return View(project);
-      }
+      var project = _db.Projects.Single(p => p.Id == id);
+      return View(project);
     }
 
     //
     // POST: /Project/Edit/5
 
     [HttpPost]
+    [Authorize(Roles = "Participant")]
     public ActionResult Edit(Guid id, Project project)
     {
       try
       {
-        using (var codapaloozaEntities = new CodapaloozaEntities())
-        {
-          var projectEntity = codapaloozaEntities.Projects.Single(p => p.Id == id);
-          UpdateModel(projectEntity);
-          codapaloozaEntities.SaveChanges();
-        }
+        var projectEntity = _db.Projects.Single(p => p.Id == id);
+        UpdateModel(projectEntity);
+        _db.SaveChanges();
 
         return RedirectToAction("Index");
       }
@@ -105,11 +110,8 @@ namespace Codapalooza.Controllers
 
     public ActionResult Delete(Guid id)
     {
-      using (var codapaloozaEntities = new CodapaloozaEntities())
-      {
-        var project = codapaloozaEntities.Projects.Single(p => p.Id == id);
-        return View(project);
-      }
+      var project = _db.Projects.Single(p => p.Id == id);
+      return View(project);
     }
 
     //
@@ -120,12 +122,9 @@ namespace Codapalooza.Controllers
     {
       try
       {
-        using (var codapaloozaEntities = new CodapaloozaEntities())
-        {
-          var projectEntity = codapaloozaEntities.Projects.Single(p => p.Id == id);
-          codapaloozaEntities.DeleteObject(projectEntity);
-          codapaloozaEntities.SaveChanges();
-        }
+        var projectEntity = _db.Projects.Single(p => p.Id == id);
+        _db.DeleteObject(projectEntity);
+        _db.SaveChanges();
 
         return RedirectToAction("Index");
       }

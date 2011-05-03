@@ -20,8 +20,11 @@
     <div class="content">
       <ul>
         <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+        @if (Context.User.IsInRole("Participant"))
+        {
         <li>&nbsp;|&nbsp;</li>
         <li><a href="@Url.Action("Index", "Project")">Projects</a></li>
+        }
         <li>&nbsp;|&nbsp;</li>
         <li><a href="@Url.Action("Index", "Guidelines")">Guidelines</a></li>
         <li>&nbsp;|&nbsp;</li>

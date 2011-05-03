@@ -252,7 +252,7 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web1.config" />
+    <Content Include="WebRoot.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Guidelines\Index.cshtml" />
