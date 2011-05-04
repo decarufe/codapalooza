@@ -22,7 +22,9 @@
     <div class="display-field">@Model.Technologies</div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @if (Model.CanEdit){
+      <span>@Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |</span>
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>
 

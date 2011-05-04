@@ -19,6 +19,8 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("CodapaloozaModel", "FK_Project_Participant", "Participant", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Codapalooza.Models.Participant), "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Codapalooza.Models.Project), true)]
+[assembly: EdmRelationshipAttribute("CodapaloozaModel", "FK_Vote_Participant1", "Participant", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Codapalooza.Models.Participant), "Vote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Codapalooza.Models.Vote), true)]
+[assembly: EdmRelationshipAttribute("CodapaloozaModel", "FK_Vote_Project1", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Codapalooza.Models.Project), "Vote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Codapalooza.Models.Vote), true)]
 
 #endregion
 
@@ -101,6 +103,22 @@ namespace Codapalooza.Models
             }
         }
         private ObjectSet<Project> _Projects;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Vote> Votes
+        {
+            get
+            {
+                if ((_Votes == null))
+                {
+                    _Votes = base.CreateObjectSet<Vote>("Votes");
+                }
+                return _Votes;
+            }
+        }
+        private ObjectSet<Vote> _Votes;
 
         #endregion
         #region AddTo Methods
@@ -119,6 +137,14 @@ namespace Codapalooza.Models
         public void AddToProjects(Project project)
         {
             base.AddObject("Projects", project);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Votes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVotes(Vote vote)
+        {
+            base.AddObject("Votes", vote);
         }
 
         #endregion
@@ -280,6 +306,28 @@ namespace Codapalooza.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Project>("CodapaloozaModel.FK_Project_Participant", "Project", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CodapaloozaModel", "FK_Vote_Participant1", "Vote")]
+        public EntityCollection<Vote> Votes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Vote>("CodapaloozaModel.FK_Vote_Participant1", "Vote");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Vote>("CodapaloozaModel.FK_Vote_Participant1", "Vote", value);
                 }
             }
         }
@@ -479,7 +527,7 @@ namespace Codapalooza.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CodapaloozaModel", "FK_Project_Participant", "Participant")]
-        public Participant Participant
+        public Participant Proposer
         {
             get
             {
@@ -495,7 +543,7 @@ namespace Codapalooza.Models
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Participant> ParticipantReference
+        public EntityReference<Participant> ProposerReference
         {
             get
             {
@@ -506,6 +554,214 @@ namespace Codapalooza.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Participant>("CodapaloozaModel.FK_Project_Participant", "Participant", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CodapaloozaModel", "FK_Vote_Project1", "Vote")]
+        public EntityCollection<Vote> Votes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Vote>("CodapaloozaModel.FK_Vote_Project1", "Vote");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Vote>("CodapaloozaModel.FK_Vote_Project1", "Vote", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CodapaloozaModel", Name="Vote")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Vote : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Vote object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="projectId">Initial value of the ProjectId property.</param>
+        /// <param name="participantId">Initial value of the ParticipantId property.</param>
+        public static Vote CreateVote(global::System.Guid id, global::System.Guid projectId, global::System.Guid participantId)
+        {
+            Vote vote = new Vote();
+            vote.Id = id;
+            vote.ProjectId = projectId;
+            vote.ParticipantId = participantId;
+            return vote;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ProjectId
+        {
+            get
+            {
+                return _ProjectId;
+            }
+            set
+            {
+                OnProjectIdChanging(value);
+                ReportPropertyChanging("ProjectId");
+                _ProjectId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProjectId");
+                OnProjectIdChanged();
+            }
+        }
+        private global::System.Guid _ProjectId;
+        partial void OnProjectIdChanging(global::System.Guid value);
+        partial void OnProjectIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ParticipantId
+        {
+            get
+            {
+                return _ParticipantId;
+            }
+            set
+            {
+                OnParticipantIdChanging(value);
+                ReportPropertyChanging("ParticipantId");
+                _ParticipantId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParticipantId");
+                OnParticipantIdChanged();
+            }
+        }
+        private global::System.Guid _ParticipantId;
+        partial void OnParticipantIdChanging(global::System.Guid value);
+        partial void OnParticipantIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CodapaloozaModel", "FK_Vote_Participant1", "Participant")]
+        public Participant Participant
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Participant>("CodapaloozaModel.FK_Vote_Participant1", "Participant").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Participant>("CodapaloozaModel.FK_Vote_Participant1", "Participant").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Participant> ParticipantReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Participant>("CodapaloozaModel.FK_Vote_Participant1", "Participant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Participant>("CodapaloozaModel.FK_Vote_Participant1", "Participant", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CodapaloozaModel", "FK_Vote_Project1", "Project")]
+        public Project Project
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CodapaloozaModel.FK_Vote_Project1", "Project").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CodapaloozaModel.FK_Vote_Project1", "Project").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Project> ProjectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CodapaloozaModel.FK_Vote_Project1", "Project");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("CodapaloozaModel.FK_Vote_Project1", "Project", value);
                 }
             }
         }

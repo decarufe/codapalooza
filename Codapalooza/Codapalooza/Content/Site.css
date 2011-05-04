@@ -202,8 +202,13 @@ textarea
 
 input[type="text"] 
 {
-    width: 200px;
+    width: 300px;
     border: 1px solid #CCC;
+}
+
+input[type="text"]#UserName
+{
+  width: 200px;
 }
 
 input[type="password"] 

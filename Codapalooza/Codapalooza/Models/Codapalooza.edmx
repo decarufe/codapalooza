@@ -8,9 +8,18 @@
         <EntityContainer Name="CodapaloozaModelStoreContainer">
           <EntitySet Name="Participant" EntityType="CodapaloozaModel.Store.Participant" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Project" EntityType="CodapaloozaModel.Store.Project" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Vote" EntityType="CodapaloozaModel.Store.Vote" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Project_Participant" Association="CodapaloozaModel.Store.FK_Project_Participant">
             <End Role="Participant" EntitySet="Participant" />
             <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vote_Participant" Association="CodapaloozaModel.Store.FK_Vote_Participant">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="Vote" EntitySet="Vote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vote_Project" Association="CodapaloozaModel.Store.FK_Vote_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Vote" EntitySet="Vote" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Participant">
@@ -33,6 +42,14 @@
           <Property Name="Technologies" Type="ntext" Nullable="false" />
           <Property Name="ProposerId" Type="uniqueidentifier" />
         </EntityType>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParticipantId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Project_Participant">
           <End Role="Participant" Type="CodapaloozaModel.Store.Participant" Multiplicity="0..1" />
           <End Role="Project" Type="CodapaloozaModel.Store.Project" Multiplicity="*" />
@@ -42,6 +59,30 @@
             </Principal>
             <Dependent Role="Project">
               <PropertyRef Name="ProposerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vote_Participant">
+          <End Role="Participant" Type="CodapaloozaModel.Store.Participant" Multiplicity="1" />
+          <End Role="Vote" Type="CodapaloozaModel.Store.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="ParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vote_Project">
+          <End Role="Project" Type="CodapaloozaModel.Store.Project" Multiplicity="1" />
+          <End Role="Vote" Type="CodapaloozaModel.Store.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -56,6 +97,15 @@
             <End Role="Participant" EntitySet="Participants" />
             <End Role="Project" EntitySet="Projects" />
           </AssociationSet>
+          <EntitySet Name="Votes" EntityType="CodapaloozaModel.Vote" />
+          <AssociationSet Name="FK_Vote_Participant1" Association="CodapaloozaModel.FK_Vote_Participant1">
+            <End Role="Participant" EntitySet="Participants" />
+            <End Role="Vote" EntitySet="Votes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vote_Project1" Association="CodapaloozaModel.FK_Vote_Project1">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Vote" EntitySet="Votes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Participant">
           <Key>
@@ -66,6 +116,7 @@
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Projects" Relationship="CodapaloozaModel.FK_Project_Participant" FromRole="Participant" ToRole="Project" />
+          <NavigationProperty Name="Votes" Relationship="CodapaloozaModel.FK_Vote_Participant1" FromRole="Participant" ToRole="Vote" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -77,7 +128,8 @@
           <Property Name="ElevetorPitch" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="Technologies" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="Guid" Name="ProposerId" Nullable="false" />
-          <NavigationProperty Name="Participant" Relationship="CodapaloozaModel.FK_Project_Participant" FromRole="Project" ToRole="Participant" />
+          <NavigationProperty Name="Proposer" Relationship="CodapaloozaModel.FK_Project_Participant" FromRole="Project" ToRole="Participant" />
+          <NavigationProperty Name="Votes" Relationship="CodapaloozaModel.FK_Vote_Project1" FromRole="Project" ToRole="Vote" />
         </EntityType>
         <Association Name="FK_Project_Participant">
           <End Type="CodapaloozaModel.Participant" Role="Participant" Multiplicity="1" />
@@ -88,6 +140,40 @@
             </Principal>
             <Dependent Role="Project">
               <PropertyRef Name="ProposerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ProjectId" Nullable="false" />
+          <Property Type="Guid" Name="ParticipantId" Nullable="false" />
+          <NavigationProperty Name="Participant" Relationship="CodapaloozaModel.FK_Vote_Participant1" FromRole="Vote" ToRole="Participant" />
+          <NavigationProperty Name="Project" Relationship="CodapaloozaModel.FK_Vote_Project1" FromRole="Vote" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_Vote_Participant1">
+          <End Type="CodapaloozaModel.Participant" Role="Participant" Multiplicity="1" />
+          <End Type="CodapaloozaModel.Vote" Role="Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="ParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vote_Project1">
+          <End Type="CodapaloozaModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="CodapaloozaModel.Vote" Role="Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vote">
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -111,6 +197,15 @@
             <ScalarProperty Name="ElevetorPitch" ColumnName="ElevetorPitch" />
             <ScalarProperty Name="Technologies" ColumnName="Technologies" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Votes">
+            <EntityTypeMapping TypeName="CodapaloozaModel.Vote">
+              <MappingFragment StoreEntitySet="Vote">
+                <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -132,11 +227,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Codapalooza">
-        <EntityTypeShape EntityType="CodapaloozaModel.Participant" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333339" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodapaloozaModel.Project" Width="1.5" PointX="3.125" PointY="0.75" Height="2.364889322916667" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodapaloozaModel.Participant" Width="1.5" PointX="0.75" PointY="0.75" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodapaloozaModel.Project" Width="1.5" PointX="3.125" PointY="0.75" Height="2.5571907552083331" IsExpanded="true" />
         <AssociationConnector Association="CodapaloozaModel.FK_Project_Participant" >
-          <ConnectorPoint PointX="2.25" PointY="1.740143229166667" />
-          <ConnectorPoint PointX="3.125" PointY="1.740143229166667" />
+          <ConnectorPoint PointX="2.25" PointY="1.8362939453125" />
+          <ConnectorPoint PointX="3.125" PointY="1.8362939453125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CodapaloozaModel.Vote" Width="1.5" PointX="0.75" PointY="3.75" Height="1.5956835937499996" />
+        <AssociationConnector Association="CodapaloozaModel.FK_Vote_Participant1" >
+          <ConnectorPoint PointX="1.828125" PointY="2.922587890625" />
+          <ConnectorPoint PointX="1.828125" PointY="3.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="CodapaloozaModel.FK_Vote_Project1" >
+          <ConnectorPoint PointX="3.5703106250000003" PointY="3.3071907552083331" />
+          <ConnectorPoint PointX="3.5703106250000003" PointY="4.465588538411458" />
+          <ConnectorPoint PointX="2.25" PointY="4.465588538411458" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
