@@ -1,0 +1,35 @@
+﻿@model Codapalooza.Models.Project
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProjectName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProjectName)
+            @Html.ValidationMessageFor(model => model.ProjectName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Desciption)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Desciption, new { style = "width: 100%; height: 150px;" })
+            @Html.ValidationMessageFor(model => model.Desciption)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ElevetorPitch)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ElevetorPitch, new { style = "width: 100%; height: 75px;" })
+            @Html.ValidationMessageFor(model => model.ElevetorPitch)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Technologies)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Technologies)
+            @Html.ValidationMessageFor(model => model.Technologies)
+        </div>

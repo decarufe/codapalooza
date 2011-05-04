@@ -47,16 +47,10 @@
     </div>
     <div class="rightcol right">
       @if (Context.User.Identity.IsAuthenticated == false)
-      {
-        <a href="@Url.Action("Register", "Account")" class="register-link">Register</a>
+      {        <a href="@Url.Action("Register", "Account")" class="register-link">Register</a>
+        <br />
+        <br />
       }
-      <h2>
-        Codapalooza one results</h2>
-      <br />
-      <a href="http://www.facebook.com/pages/Codapalooza/142090845840938">
-        <img src="@Url.Content("~/imgs/codapalooza-one-on-facebook.png")" alt="" width="228" height="165" /></a>
-      <br />
-      <br />
       <h2>
         Our recent tweets</h2>
       <div id="tweets">

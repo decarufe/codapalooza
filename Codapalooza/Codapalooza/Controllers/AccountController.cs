@@ -101,7 +101,7 @@ namespace Codapalooza.Controllers
           };
           codapaloozaEntities.Participants.AddObject(participant);
           codapaloozaEntities.SaveChanges();
-          return RedirectToAction("Index", "Home");
+          return RedirectToAction("Index", "Project");
         }
         else
         {
