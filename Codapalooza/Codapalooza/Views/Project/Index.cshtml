@@ -18,7 +18,14 @@
         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <br />
         @Html.ActionLink("Delete", "Delete", new { id = item.Id }) <br />
     }
-    @Html.ActionLink("Vote", "Vote", new { id = item.Id} )
+    @if (item.Votes.Any(v => v.Participant.UserName == User.Identity.Name))
+    {
+      <span>Vot&eacute;</span>
+    }
+    else
+    {
+      @Html.ActionLink("Vote", "Vote", new { id = item.Id })
+    }
     </td>
     <td>
       <span style="font-size: 16pt">@Html.ActionLink(item.ProjectName, "Details", new { id = item.Id })</span> <span>(Votes : @item.Votes.Count)</span><br />

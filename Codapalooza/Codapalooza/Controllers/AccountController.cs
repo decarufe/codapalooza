@@ -95,7 +95,7 @@ namespace Codapalooza.Controllers
           var participant = new Participant()
           {
             Id = Guid.NewGuid(),
-            UserName = User.Identity.Name,
+            UserName = model.UserName,
             FirstName = model.FirstName,
             LastName = model.LastName
           };
