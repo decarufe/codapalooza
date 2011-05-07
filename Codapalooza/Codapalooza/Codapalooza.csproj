@@ -154,6 +154,7 @@
       <DependentUpon>Codapalooza.mdf</DependentUpon>
     </Content>
     <Content Include="css\codapalooza2.css" />
+    <Content Include="favicon.ico" />
     <Content Include="imgs\codapalooza-logo.png" />
     <Content Include="imgs\codapalooza2-small.jpg" />
     <Content Include="imgs\codapalooza2.jpg" />
