@@ -1,0 +1,149 @@
+/* Styles génériques */
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.clear {
+	clear: both;
+}
+#content .leftcol ul {
+	padding: 0 0 0 25px;
+	list-style: square;
+	margin: 10px 0;
+	line-height: 18px;
+}
+#content .leftcol ul li {
+	margin-bottom: 10px;
+}
+a.inscription, a.inscription:visited, a.inscription:active {
+	display: block;
+	text-align: center;
+	height: 42px;
+	padding: 14px 0 0 0;
+	margin-bottom: 8px;
+	position: relative;
+	-moz-border-radius: 5px; /* FF1+ */
+	-webkit-border-radius: 5px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	text-shadow: 0px 2px 2px #5a330d; /* FF3.5+, Opera 9+, Saf1+, Chrome */
+	font-family: Arial, Helvetica, sans-serif;
+	color: #fff;
+	font-size: 26px;
+	text-decoration: none;
+	background: #FA7B01;
+	font-weight: bold;
+}
+/* Styles structuraux */
+body {
+	background: transparent url(../imgs/background.jpg) repeat left top;
+	margin-top: 10px;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #333;
+}
+.content {
+	width: 960px;
+	margin: 0 auto;
+}
+/* Styles Menu */
+#menu {
+	margin: 15px 0;
+}
+#menu ul {
+	width: 960px;
+	height: 46px;
+	background: transparent url(../imgs/menu-bckgrnd.jpg) no-repeat left top;
+}
+#menu ul li {
+	float: left;
+}
+#menu ul li a {
+	padding: 15px 15px;
+	color: #333;
+	font-weight: bold;
+	font-size: 16px;
+	text-decoration: none;
+	display: block;
+}
+#menu ul li a.logo {
+	padding-top: 10px;
+	padding-bottom: 8px;
+}
+#menu ul li a.selected {
+	background: #1747d1;
+	color: #fff;
+}
+
+#menu ul li span.selected a {
+	background: #1747d1;
+	color: #fff;
+}
+/* Styles contenu */
+#content {
+	background: #faf9f5;
+	width: 920px;
+	margin: 15px auto;
+	padding: 50px 20px;
+	min-height: 350px;
+}
+.leftcol {
+	width: 605px;
+}
+.rightcol {
+	width: 270px;
+	padding: 0 0 0 20px;
+	border-left: 1px solid #333;
+}
+/* Headers */
+h1 {
+	font-size: 22px;
+	color: #333;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-bottom: 20px;
+}
+p {
+	margin: 0 0 20px 0;
+	line-height: 17px;
+}
+.rightcol h2 {
+	font-size: 18px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #000;
+}
+.leftcol h2 {
+	font-size: 24px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #000;
+	margin: 20px 0;
+}
+.leftcol h3 {
+	font-size: 18px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #000;
+	margin: 20px 0;	
+}
+/* tweetable */
+#tweets {
+	margin: 0 0 30px 0;
+}
+#tweets li {
+	font-size:13px;
+	background:url(../imgs/twitter.png) no-repeat left 5px;
+	padding-left:25px;
+	padding-top:4px;
+	margin-top:8px;
+	list-style-type:none;
+	line-height: 16px;
+}
+#tweets .hash { color:#333; } 
+#tweets .reply { color:#333; } 
+#tweets a:link { text-decoration:none; color:#0066CC;}
+#tweets a:active { text-decoration:none; color:#0066CC;}
+#tweets a:hover { text-decoration:underline; color:#0066CC;}
+#tweets a:visited { text-decoration:none; color:#0066CC;}

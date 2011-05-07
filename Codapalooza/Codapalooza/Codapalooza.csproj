@@ -47,6 +47,9 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="NuGet.Core, Version=1.0.11220.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -109,10 +112,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GuidelinesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\ParticipantController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
+    <Compile Include="test2.aspx.cs">
+      <DependentUpon>test2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test2.aspx.designer.cs">
+      <DependentUpon>test2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -142,6 +153,13 @@
     <Content Include="App_Data\Codapalooza_log.ldf">
       <DependentUpon>Codapalooza.mdf</DependentUpon>
     </Content>
+    <Content Include="css\codapalooza2.css" />
+    <Content Include="imgs\codapalooza-logo.png" />
+    <Content Include="imgs\codapalooza2-small.jpg" />
+    <Content Include="imgs\codapalooza2.jpg" />
+    <Content Include="imgs\codapalooza2.png" />
+    <Content Include="imgs\results-locked-to-facebook.jpg" />
+    <Content Include="test2.aspx" />
     <Content Include="css\codapalooza-one.css" />
     <Content Include="css\reset.css" />
     <Content Include="Global.asax" />
@@ -167,6 +185,7 @@
     <Content Include="imgs\title-teams.png" />
     <Content Include="imgs\twitter.png" />
     <Content Include="js\codapalooza.js" />
+    <Content Include="test.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -285,6 +304,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Project\_ProjectForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Mail\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Confirm.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

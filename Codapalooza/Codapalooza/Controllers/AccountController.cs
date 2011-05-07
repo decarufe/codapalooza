@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web.ApplicationServices;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -10,6 +13,7 @@ namespace Codapalooza.Controllers
 {
   public class AccountController : Controller
   {
+    private CodapaloozaEntities _db;
 
     public IFormsAuthenticationService FormsService { get; set; }
     public IMembershipService MembershipService { get; set; }
@@ -18,6 +22,7 @@ namespace Codapalooza.Controllers
     {
       if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
       if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
+      if (_db == null) _db = new CodapaloozaEntities();
 
       base.Initialize(requestContext);
     }
@@ -91,7 +96,6 @@ namespace Codapalooza.Controllers
         {
           Roles.AddUserToRole(model.UserName, "Participant");
           FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
-          var codapaloozaEntities = new CodapaloozaEntities();
           var participant = new Participant()
           {
             Id = Guid.NewGuid(),
@@ -99,8 +103,11 @@ namespace Codapalooza.Controllers
             FirstName = model.FirstName,
             LastName = model.LastName
           };
-          codapaloozaEntities.Participants.AddObject(participant);
-          codapaloozaEntities.SaveChanges();
+          _db.Participants.AddObject(participant);
+          _db.SaveChanges();
+
+          SendConfirmationEmail(model.Email, participant.Id);
+
           return RedirectToAction("Index", "Project");
         }
         else
@@ -112,6 +119,22 @@ namespace Codapalooza.Controllers
       // If we got this far, something failed, redisplay form
       ViewBag.PasswordLength = MembershipService.MinPasswordLength;
       return View(model);
+    }
+
+    private void SendConfirmationEmail(string userEmail, Guid userId)
+    {
+      MailMessage mail = new MailMessage("postmaster@codapalooza.net", userEmail)
+      {
+        Subject = "Coonfirmation d'inscription au Codapalooza",
+        Body = "Pour confirmer votre inscription vous devez cliquez sur le lien suivant\n\n" +
+               "http://codapalooza.net/Codapalooza/Account/Confirm/" + userId + "\n\n"
+      };
+      //send the message 
+      SmtpClient smtp = new SmtpClient("mail.codapalooza.net");
+
+      NetworkCredential credentials = new NetworkCredential("postmaster@decarufel.net", "amix0214");
+      smtp.Credentials = credentials;
+      smtp.Send(mail);
     }
 
     // **************************************
@@ -155,5 +178,11 @@ namespace Codapalooza.Controllers
       return View();
     }
 
+    public ActionResult Confirm(Guid id)
+    {
+      var participant = _db.Participants.Single(p => p.Id == id);
+      
+      return View(participant);
+    }
   }
 }

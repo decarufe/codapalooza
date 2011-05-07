@@ -9,36 +9,40 @@
     $(function () {
       $('#tweets').tweetable({ username: 'codapalooza', time: true, limit: 15, replies: false });
       jQuery.preLoadImages("/imgs/multimedia-h.png", "/imgs/home-h.png", "/imgs/about-h.png", "/imgs/guidelines-h.png");
+      $("#" + $.getSection()).addClass("selected")
     });</script>
   <link href="@Url.Content("~/css/reset.css")" rel="stylesheet" type="text/css" />
-  <link href="@Url.Content("~/css/codapalooza-one.css")" rel="stylesheet" type="text/css" />
-  <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+  <link href="@Url.Content("~/css/codapalooza2.css")" rel="stylesheet" type="text/css" />
+  @*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
 </head>
 <body>
-  @*<div id="header">	<div class="content">		<img src="/imgs/codapalooza-one-post-event.jpg" width="960" height="429" usemap="#Map" />        <map name="Map" id="Map">          <area shape="rect" coords="516,281,726,328" href="http://www.facebook.com/pages/Codapalooza/142090845840938?v=app_4949752878&ref=sgm" alt="" />        </map>    </div></div>*@
   <div id="menu">
     <div class="content">
       <ul>
-        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+        <li><a id="home" href="@Url.Action("Index", "Home")" class="logo">
+          <img src="@Url.Content("~/imgs/codapalooza-logo.png")" width="131" height="26" /></a></li>
         @if (Context.User.IsInRole("Participant"))
         {
-        <li>&nbsp;|&nbsp;</li>
-        <li><a href="@Url.Action("Index", "Project")">Projects</a></li>
+        <li><a id="project" href="@Url.Action("Index", "Project")">Projects</a></li>
         }
-        <li>&nbsp;|&nbsp;</li>
-        <li><a href="@Url.Action("Index", "Guidelines")">Guidelines</a></li>
-        <li>&nbsp;|&nbsp;</li>
-        <li><a href="@Url.Action("Index", "Schedule")">Schedule</a></li>
-        <li>&nbsp;|&nbsp;</li>
-        <li><a href="@Url.Action("Index", "Sponsor")">Sponsor</a></li>
-        <li>&nbsp;|&nbsp;</li>
-        <li><a href="@Url.Action("Index", "About")">About</a></li>
-        @*<li><a href="@Url.Action("Index", "Home")" class="guidelines"></a></li>*@ @*<li><a href="@Url.Action("Register", "Account")" class="teams"></a></li>*@
-        @*<li><a href="@Url.Action("Index", "Home")" class="about"></a></li>*@ @*<li><a href="@Url.Action("Index", "Home")" class="multimedia"></a></li>*@
+        <li><a id="guidelines" href="@Url.Action("Index", "Guidelines")">Lignes directrices</a></li>
+        <li><a id="schedule" href="@Url.Action("Index", "Schedule")">Horaire</a></li>
+        <li><a id="sponsor" href="@Url.Action("Index", "Sponsor")">Commanditaires</a></li>
+        <li><a id="about" href="@Url.Action("Index", "About")">A propos</a></li>
+        <li><span id="account">@Html.Partial("_LogOnPartial")</span></li>
       </ul>
-      <div class="right">
-        @Html.Partial("_LogOnPartial")
-      </div>
+    </div>
+  </div>
+  <div id="header">
+    <div class="content">
+    @if (Request.Url.AbsolutePath.ToLower().StartsWith("home") || Request.Url.AbsolutePath == "/")
+    {
+      <img src="@Url.Content("~/imgs/codapalooza2.jpg")" width="960" height="379" />
+    }
+    else
+    {
+      <img src="@Url.Content("~/imgs/codapalooza2-small.jpg")" width="957" height="148" />
+    }
     </div>
   </div>
   <div id="content">
@@ -47,7 +51,7 @@
     </div>
     <div class="rightcol right">
       @if (Context.User.Identity.IsAuthenticated == false)
-      {        <a href="@Url.Action("Register", "Account")" class="register-link">Register</a>
+      {      <a href="@Url.Action("Register", "Account")" class="inscription">inscrivez-vous</a>
         <br />
         <br />
       }
