@@ -58,3 +58,22 @@
     });
   }
 })(jQuery);
+
+$.getSection = function () {
+  var pathName = window.location.pathname.replace("/codapalooza", "", "gi");
+  if (pathName.length <= 1) {
+    return "home";
+  }
+  var path = pathName.substr(1).toLowerCase();
+  var slashPos = path.indexOf("/");
+  if (slashPos > 0) {
+    var section = path.substr(0, slashPos);
+  } else {
+    var section = path;
+  }
+
+  //      window.alert(section);
+
+  return section;
+}
+

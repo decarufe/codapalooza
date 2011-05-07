@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Project</legend>
+
+        <p>
+            <input type="submit" value="Send" />
+        </p>
+    </fieldset>
+}

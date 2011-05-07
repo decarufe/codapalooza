@@ -1,0 +1,19 @@
+﻿@model Codapalooza.Models.Participant
+
+@{
+    ViewBag.Title = "Confirm";
+}
+
+<h1>Confirmation d'inscription</h1>
+
+<p>
+Bienvenu @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName).
+</p>
+
+<p>Ton inscription est maintenant confirmée.</p>
+
+<p>Je t'invite à inscrire ton projet et/ou voter pour ton préféré.</p>
+
+<p>
+    @Html.ActionLink("Allez aux projets", "Index", "Project")
+</p>
