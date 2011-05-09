@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -443,6 +444,21 @@ namespace Codapalooza.Tests.Controllers
       public bool ChangePassword(string userName, string oldPassword, string newPassword)
       {
         return (userName == "someUser" && oldPassword == "goodOldPassword" && newPassword == "goodNewPassword");
+      }
+
+      public IEnumerable<MembershipUser> GetAllUsers()
+      {
+        throw new NotImplementedException();
+      }
+
+      public MembershipUser GetUserByName(string userName)
+      {
+        throw new NotImplementedException();
+      }
+
+      public void DeleteUser(string userName)
+      {
+        throw new NotImplementedException();
       }
     }
 

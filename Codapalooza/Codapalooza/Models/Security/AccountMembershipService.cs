@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Security;
 
 namespace Codapalooza.Models.Security
@@ -65,6 +67,25 @@ namespace Codapalooza.Models.Security
       {
         return false;
       }
+    }
+
+    public IEnumerable<MembershipUser> GetAllUsers()
+    {
+      int totalRecords;
+      var users = _provider.GetAllUsers(0, 200, out totalRecords);
+      return users.Cast<MembershipUser>();
+    }
+
+    public MembershipUser GetUserByName(string userName)
+    {
+      var user = _provider.GetUser(userName, false);
+
+      return user;
+    }
+
+    public void DeleteUser(string userName)
+    {
+      _provider.DeleteUser(userName, true);
     }
   }
 }

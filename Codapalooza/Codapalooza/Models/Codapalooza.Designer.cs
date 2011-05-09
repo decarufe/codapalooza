@@ -172,13 +172,15 @@ namespace Codapalooza.Models
         /// <param name="userName">Initial value of the UserName property.</param>
         /// <param name="firstName">Initial value of the FirstName property.</param>
         /// <param name="lastName">Initial value of the LastName property.</param>
-        public static Participant CreateParticipant(global::System.Guid id, global::System.String userName, global::System.String firstName, global::System.String lastName)
+        /// <param name="confirmed">Initial value of the Confirmed property.</param>
+        public static Participant CreateParticipant(global::System.Guid id, global::System.String userName, global::System.String firstName, global::System.String lastName, global::System.Boolean confirmed)
         {
             Participant participant = new Participant();
             participant.Id = id;
             participant.UserName = userName;
             participant.FirstName = firstName;
             participant.LastName = lastName;
+            participant.Confirmed = confirmed;
             return participant;
         }
 
@@ -283,6 +285,54 @@ namespace Codapalooza.Models
         private global::System.String _LastName;
         partial void OnLastNameChanging(global::System.String value);
         partial void OnLastNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                OnEmailChanging(value);
+                ReportPropertyChanging("Email");
+                _Email = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Email");
+                OnEmailChanged();
+            }
+        }
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Confirmed
+        {
+            get
+            {
+                return _Confirmed;
+            }
+            set
+            {
+                OnConfirmedChanging(value);
+                ReportPropertyChanging("Confirmed");
+                _Confirmed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Confirmed");
+                OnConfirmedChanged();
+            }
+        }
+        private global::System.Boolean _Confirmed;
+        partial void OnConfirmedChanging(global::System.Boolean value);
+        partial void OnConfirmedChanged();
 
         #endregion
     

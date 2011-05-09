@@ -31,6 +31,7 @@
         <li><a id="sponsor" href="@Url.Action("Index", "Sponsor")">Commanditaires</a></li>
         <li><a id="about" href="@Url.Action("Index", "About")">A propos</a></li>
         <li><span id="account">@Html.Partial("_LogOnPartial")</span></li>
+        <li><div class="user">@Context.User.Identity.Name</div></li>
       </ul>
     </div>
   </div>

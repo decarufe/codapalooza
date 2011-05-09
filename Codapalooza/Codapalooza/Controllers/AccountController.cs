@@ -101,14 +101,15 @@ namespace Codapalooza.Controllers
             Id = Guid.NewGuid(),
             UserName = model.UserName,
             FirstName = model.FirstName,
-            LastName = model.LastName
+            LastName = model.LastName,
+            Email = model.Email
           };
           _db.Participants.AddObject(participant);
           _db.SaveChanges();
 
           SendConfirmationEmail(model.Email, participant.Id);
 
-          return RedirectToAction("Index", "Project");
+          return RedirectToAction("WaitingForConfirmation", "Account");
         }
         else
         {
@@ -127,13 +128,18 @@ namespace Codapalooza.Controllers
       {
         Subject = "Coonfirmation d'inscription au Codapalooza",
         Body = "Pour confirmer votre inscription vous devez cliquez sur le lien suivant\n\n" +
-               "http://codapalooza.net/Codapalooza/Account/Confirm/" + userId + "\n\n"
+               Url.Content("~/Account/Confirm/") + userId + "\n\n"
       };
       //send the message 
+#if DEBUG
+      // vlquhxvm
+      SmtpClient smtp = new SmtpClient("relais.videotron.ca");
+      //NetworkCredential credentials = new NetworkCredential("postmaster@decarufel.net", "amix0214");
+#else
       SmtpClient smtp = new SmtpClient("mail.codapalooza.net");
-
       NetworkCredential credentials = new NetworkCredential("postmaster@decarufel.net", "amix0214");
       smtp.Credentials = credentials;
+#endif
       smtp.Send(mail);
     }
 
@@ -178,11 +184,29 @@ namespace Codapalooza.Controllers
       return View();
     }
 
-    public ActionResult Confirm(Guid id)
+    public ActionResult WaitingForConfirmation()
     {
-      var participant = _db.Participants.Single(p => p.Id == id);
-      
+      var participant = _db.Participants.Single(p => p.UserName == User.Identity.Name);
+
       return View(participant);
+    }
+
+    public ActionResult Confirm(Guid? id)
+    {
+      try
+      {
+        var participant = _db.Participants.Single(p => p.Id == id);
+
+        participant.Confirmed = true;
+        _db.SaveChanges();
+
+        return View(participant);
+      }
+      catch (Exception e)
+      {
+        ModelState.AddModelError("", "Une erreur est surevenu lors de la validation\nContactez l'administrateur");
+        return View();
+      }      
     }
   }
 }

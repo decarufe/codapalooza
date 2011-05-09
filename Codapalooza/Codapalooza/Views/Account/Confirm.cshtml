@@ -10,6 +10,9 @@
 Bienvenu @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName).
 </p>
 
+@Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+@if (Model.Confirmed)
+{
 <p>Ton inscription est maintenant confirmée.</p>
 
 <p>Je t'invite à inscrire ton projet et/ou voter pour ton préféré.</p>
@@ -17,3 +20,10 @@ Bienvenu @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => mo
 <p>
     @Html.ActionLink("Allez aux projets", "Index", "Project")
 </p>
+}
+else
+{
+<p>Une erreur est survenue lors de la confirmation.</p>
+
+<p>Contactez l'administrateur pour régler le problème.</p>
+}

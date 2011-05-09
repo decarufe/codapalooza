@@ -30,6 +30,8 @@
           <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
           <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="Confirmed" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -117,6 +119,8 @@
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Projects" Relationship="CodapaloozaModel.FK_Project_Participant" FromRole="Participant" ToRole="Project" />
           <NavigationProperty Name="Votes" Relationship="CodapaloozaModel.FK_Vote_Participant1" FromRole="Participant" ToRole="Vote" />
+          <Property Type="String" Name="Email" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Confirmed" Nullable="false" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -184,6 +188,8 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CodapaloozaModelStoreContainer" CdmEntityContainer="CodapaloozaEntities">
           <EntitySetMapping Name="Participants"><EntityTypeMapping TypeName="CodapaloozaModel.Participant"><MappingFragment StoreEntitySet="Participant">
+                <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="UserName" ColumnName="UserName" />
             <ScalarProperty Name="FirstName" ColumnName="FirstName" />
