@@ -118,6 +118,7 @@
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+	<Compile Include="Models\SubscriptionService.cs" />
     <Compile Include="test2.aspx.cs">
       <DependentUpon>test2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

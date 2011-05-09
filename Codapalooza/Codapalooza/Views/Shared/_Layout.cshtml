@@ -11,7 +11,8 @@
       $('#tweets').tweetable({ username: 'codapalooza', time: true, limit: 15, replies: false });
       jQuery.preLoadImages("/imgs/multimedia-h.png", "/imgs/home-h.png", "/imgs/about-h.png", "/imgs/guidelines-h.png");
       $("#" + $.getSection()).addClass("selected")
-    });</script>
+    });
+</script>
   <link href="@Url.Content("~/css/reset.css")" rel="stylesheet" type="text/css" />
   <link href="@Url.Content("~/css/codapalooza2.css")" rel="stylesheet" type="text/css" />
   @*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
@@ -53,10 +54,28 @@
     </div>
     <div class="rightcol right">
       @if (Context.User.Identity.IsAuthenticated == false)
-      {      <a href="@Url.Action("Register", "Account")" class="inscription">inscrivez-vous</a>
+      {
+				if (Codapalooza.Models.SubscriptionService.Current.RemainingPlaces() > 0)
+				{
+      <a href="@Url.Action("Register", "Account")" class="inscription">inscrivez-vous</a>
+					if (Codapalooza.Models.SubscriptionService.Current.RemainingPlaces() == 1)
+					{
+						<i>il ne reste qu'une place!</i>
+					}
+					else
+					{
+						<i>il ne reste que @Codapalooza.Models.SubscriptionService.Current.RemainingPlaces() places</i>
+					}			
+					
+				
         <br />
         <br />
       }
+				else
+				{
+					<strong>Désoler, il ne reste plus de places!</strong>
+				}
+			}
       <h2>
         Our recent tweets</h2>
       <div id="tweets">

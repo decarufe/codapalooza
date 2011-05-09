@@ -80,6 +80,10 @@ namespace Codapalooza.Controllers
 
     public ActionResult Register()
     {
+			if (SubscriptionService.Current.RemainingPlaces() < 1)
+			{
+				return RedirectToAction("Index", "Home");
+			}
       ViewBag.PasswordLength = MembershipService.MinPasswordLength;
       return View();
     }
