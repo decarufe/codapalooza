@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codapalooza", "Codapalooza\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codapalooza.Tests", "Codapalooza.Tests\Codapalooza.Tests.csproj", "{F2DFE049-E152-41FC-9356-FBAD42A52119}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{BCDE8877-C1E2-4FE4-8C3C-7FD64F9DC837}"
+	ProjectSection(SolutionItems) = preProject
+		Others\Codapalooza Shcema update.scmp = Others\Codapalooza Shcema update.scmp
+		Others\photo.JPG = Others\photo.JPG
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3

@@ -117,6 +117,7 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="test2.aspx.cs">
       <DependentUpon>test2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -311,6 +312,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Confirm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\WaitingForConfirmation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

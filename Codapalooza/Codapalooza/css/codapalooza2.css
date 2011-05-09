@@ -63,13 +63,19 @@ body {
 	float: left;
 }
 #menu ul li a {
-	padding: 15px 15px;
+	padding: 15px 10px;
 	color: #333;
 	font-weight: bold;
 	font-size: 16px;
 	text-decoration: none;
 	display: block;
 }
+
+#menu ul li a:hover
+{
+  background: lightblue;
+}
+
 #menu ul li a.logo {
 	padding-top: 10px;
 	padding-bottom: 8px;
@@ -83,6 +89,17 @@ body {
 	background: #1747d1;
 	color: #fff;
 }
+
+#menu ul li div.user 
+{
+	padding: 15px 10px;
+	color: #999;
+	font-weight: bold;
+	font-size: 16px;
+	text-decoration: none;
+	display: block;
+}
+
 /* Styles contenu */
 #content {
 	background: #faf9f5;

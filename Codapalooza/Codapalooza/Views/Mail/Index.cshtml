@@ -1,16 +1,10 @@
-﻿@{
+﻿@model Codapalooza.Models.Participant
+
+@{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h1>En attente de confirmation</h1>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Project</legend>
-
-        <p>
-            <input type="submit" value="Send" />
-        </p>
-    </fieldset>
-}
+<p>Un message vous a été envoyé à @Model.Email. Vérifier
+votre boite de réception et cliquer sur le lien de confirmation.</p>
