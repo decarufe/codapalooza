@@ -132,19 +132,43 @@ namespace Codapalooza.Controllers
       {
         Subject = "Coonfirmation d'inscription au Codapalooza",
         Body = "Pour confirmer votre inscription vous devez cliquez sur le lien suivant\n\n" +
-               Url.Content("~/Account/Confirm/") + userId + "\n\n"
+        GetApplicationRoot() + "Account/Confirm/" + userId + "\n\n"
       };
       //send the message 
-#if DEBUG
-      // vlquhxvm
-      SmtpClient smtp = new SmtpClient("relais.videotron.ca");
-      //NetworkCredential credentials = new NetworkCredential("postmaster@decarufel.net", "amix0214");
-#else
-      SmtpClient smtp = new SmtpClient("mail.codapalooza.net");
-      NetworkCredential credentials = new NetworkCredential("postmaster@decarufel.net", "amix0214");
-      smtp.Credentials = credentials;
-#endif
-      smtp.Send(mail);
+      if (HttpContext.Request.Url != null)
+      {
+        SmtpClient smtp;
+        if (HttpContext.Request.Url.Host.Contains("codapalooza"))
+        {
+          smtp = new SmtpClient("mail.codapalooza.net");
+          NetworkCredential credentials = new NetworkCredential("postmaster@decarufel.net", "amix0214");
+          smtp.Credentials = credentials;
+        }
+        else
+        {
+          // vlquhxvm
+          smtp = new SmtpClient("relais.videotron.ca");
+        }
+        smtp.Send(mail);
+      }
+      else
+      {
+        throw new InvalidOperationException("No Context");
+      }
+    }
+
+    private string GetApplicationRoot()
+    {
+      if (HttpContext.Request.Url != null)
+      {
+        var applicationRoot = HttpContext.Request.Url.ToString().Replace(HttpContext.Request.Url.PathAndQuery, "");
+        if (applicationRoot.EndsWith("/"))
+          return applicationRoot;
+
+        return applicationRoot + "/";
+      }
+
+      throw new InvalidOperationException("No Uri");
     }
 
     // **************************************

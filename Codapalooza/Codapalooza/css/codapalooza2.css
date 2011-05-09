@@ -164,3 +164,62 @@ p {
 #tweets a:active { text-decoration:none; color:#0066CC;}
 #tweets a:hover { text-decoration:underline; color:#0066CC;}
 #tweets a:visited { text-decoration:none; color:#0066CC;}
+
+form {
+    padding: 10px 0 0 0;
+}
+legend {
+    margin-bottom: 20px;
+}
+input[type=text], input[type=password], textarea {
+    width: 400px;
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+
+    -moz-border-radius: 5px; /* FF1+ */
+    -webkit-border-radius: 5px; /* Saf3-4, iOS 1+, Android 1.5+ */
+    border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    
+    margin: 2px 0 8px 0;
+    font-size: 15px;
+    color: #555;
+    font-weight: bold;
+}
+textarea {
+    height: 150px;
+}
+label {
+    font-weight: bold;
+    font-size: 15px;
+    color: #666;
+}
+input[type=submit] {
+    display: block;
+    text-align: center;
+    height: 52px;
+    padding: 0;
+    margin-bottom: 8px;
+    position: relative;
+    
+    -moz-border-radius: 5px; /* FF1+ */
+    -webkit-border-radius: 5px; /* Saf3-4, iOS 1+, Android 1.5+ */
+    border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+    
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    
+    text-shadow: 0px 2px 2px #354d02; /* FF3.5+, Opera 9+, Saf1+, Chrome */
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    font-size: 26px;
+    text-decoration: none;
+    background: #8dcb04;
+    font-weight: bold;
+    border: 0;
+    width: 200px;
+}
