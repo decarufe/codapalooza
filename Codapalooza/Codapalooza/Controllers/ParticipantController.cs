@@ -7,7 +7,7 @@ namespace Codapalooza.Controllers
 {
 	public class ParticipantController : Controller
 	{
-		private CodapaloozaEntities _db;
+		private readonly CodapaloozaEntities _db;
 
 		public ParticipantController()
 		{

@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using Codapalooza.Models;
 using Codapalooza.Models.Security;
+using Codapalooza.Services;
 
 namespace Codapalooza.Controllers
 {
@@ -47,15 +48,11 @@ namespace Codapalooza.Controllers
 					{
 						return Redirect(returnUrl);
 					}
-					else
-					{
-						return RedirectToAction("Index", "Home");
-					}
+
+					return RedirectToAction("Index", "Home");
 				}
-				else
-				{
-					ModelState.AddModelError("", "The user name or password provided is incorrect.");
-				}
+
+				ModelState.AddModelError("", "The user name or password provided is incorrect.");
 			}
 
 			// If we got this far, something failed, redisplay form
@@ -114,10 +111,8 @@ namespace Codapalooza.Controllers
 
 					return RedirectToAction("WaitingForConfirmation", "Account");
 				}
-				else
-				{
-					ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
-				}
+
+				ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
 			}
 
 			// If we got this far, something failed, redisplay form
@@ -146,7 +141,8 @@ namespace Codapalooza.Controllers
 				else
 				{
 					// vlquhxvm
-					smtp = new SmtpClient("relais.videotron.ca");
+					//smtp = new SmtpClient("relais.videotron.ca");
+					smtp = new SmtpClient("smtp.b2b2c.ca");
 				}
 				smtp.Send(mail);
 			}
@@ -227,6 +223,8 @@ namespace Codapalooza.Controllers
 				participant.Confirmed = true;
 				_db.SaveChanges();
 
+				ViewBag.SuccessReturnUrl = string.Format("{0}Account/Paid/{1}", GetApplicationRoot(), participant.Id);
+				ViewBag.CancelReturnUrl = string.Format("{0}Account/Cancel/{1}", GetApplicationRoot(), participant.Id);
 				return View(participant);
 			}
 			catch (Exception e)
@@ -234,6 +232,16 @@ namespace Codapalooza.Controllers
 				ModelState.AddModelError("", "Une erreur est surevenu lors de la validation\nContactez l'administrateur");
 				return View();
 			}
+		}
+
+		public ActionResult Paid(Guid? id)
+		{
+			return View();
+		}
+
+		public ActionResult Cancel(Guid? id)
+		{
+			return View();
 		}
 	}
 }

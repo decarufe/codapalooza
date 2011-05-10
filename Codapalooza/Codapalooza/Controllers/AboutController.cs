@@ -11,6 +11,5 @@ namespace Codapalooza.Controllers
         {
             return View();
         }
-
     }
 }
