@@ -187,10 +187,8 @@ namespace Codapalooza.Controllers
 				{
 					return RedirectToAction("ChangePasswordSuccess");
 				}
-				else
-				{
-					ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-				}
+
+				ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
 			}
 
 			// If we got this far, something failed, redisplay form
@@ -244,6 +242,19 @@ namespace Codapalooza.Controllers
 			return View();
 		}
 
+		public ActionResult PaypalNotification(Guid? id)
+		{
+			var paypalService = new PaypalService();
+			if (paypalService.PaymentIsCompleted(Request))
+			{
+				var participant = GetParticipantById(id);
+				participant.Payed = true;
+				_db.SaveChanges();
+			}
+
+			return null;
+		}
+
 		private Participant GetParticipantById(Guid? id)
 		{
 			return _db.Participants.Single(p => p.Id == id);
@@ -253,6 +264,7 @@ namespace Codapalooza.Controllers
 		{
 			ViewBag.SuccessReturnUrl = string.Format("{0}Account/Paid/{1}", GetApplicationRoot(), participant.Id);
 			ViewBag.CancelReturnUrl = string.Format("{0}Account/Cancel/{1}", GetApplicationRoot(), participant.Id);
+			ViewBag.PaypalNotificationUrl = string.Format("{0}Account/PaypalNotification/{1}", GetApplicationRoot(), participant.Id);
 		}
 	}
 }
