@@ -223,8 +223,7 @@ namespace Codapalooza.Controllers
 				participant.Confirmed = true;
 				_db.SaveChanges();
 
-				ViewBag.SuccessReturnUrl = string.Format("{0}Account/Paid/{1}", GetApplicationRoot(), participant.Id);
-				ViewBag.CancelReturnUrl = string.Format("{0}Account/Cancel/{1}", GetApplicationRoot(), participant.Id);
+				SetPaypalReturnUrls(participant);
 				return View(participant);
 			}
 			catch (Exception e)
@@ -236,12 +235,24 @@ namespace Codapalooza.Controllers
 
 		public ActionResult Paid(Guid? id)
 		{
-			return View();
+			var participant = GetParticipantById(id);
+			return View(participant);
 		}
 
 		public ActionResult Cancel(Guid? id)
 		{
 			return View();
+		}
+
+		private Participant GetParticipantById(Guid? id)
+		{
+			return _db.Participants.Single(p => p.Id == id);
+		}
+
+		private void SetPaypalReturnUrls(Participant participant)
+		{
+			ViewBag.SuccessReturnUrl = string.Format("{0}Account/Paid/{1}", GetApplicationRoot(), participant.Id);
+			ViewBag.CancelReturnUrl = string.Format("{0}Account/Cancel/{1}", GetApplicationRoot(), participant.Id);
 		}
 	}
 }

@@ -42,14 +42,9 @@
 		<input type="hidden" name="page_style" value="Formation" />
 		<input type="hidden" name="return" value="@ViewBag.SuccessReturnUrl" />
 		<input type="hidden" name="cancel_return" value="@ViewBag.CancelReturnUrl" />
+		@*<input type="hidden" name="notify_url" "" />*@
 	</fieldset>
 </form>
-
-<p>Je t'invite à inscrire ton projet et/ou voter pour ton préféré.</p>
-
-<p>
-    @Html.ActionLink("Allez aux projets", "Index", "Project")
-</p>
 }
 else
 {
