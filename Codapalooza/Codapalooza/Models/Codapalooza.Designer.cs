@@ -173,7 +173,8 @@ namespace Codapalooza.Models
         /// <param name="firstName">Initial value of the FirstName property.</param>
         /// <param name="lastName">Initial value of the LastName property.</param>
         /// <param name="confirmed">Initial value of the Confirmed property.</param>
-        public static Participant CreateParticipant(global::System.Guid id, global::System.String userName, global::System.String firstName, global::System.String lastName, global::System.Boolean confirmed)
+        /// <param name="payed">Initial value of the Payed property.</param>
+        public static Participant CreateParticipant(global::System.Guid id, global::System.String userName, global::System.String firstName, global::System.String lastName, global::System.Boolean confirmed, global::System.Boolean payed)
         {
             Participant participant = new Participant();
             participant.Id = id;
@@ -181,6 +182,7 @@ namespace Codapalooza.Models
             participant.FirstName = firstName;
             participant.LastName = lastName;
             participant.Confirmed = confirmed;
+            participant.Payed = payed;
             return participant;
         }
 
@@ -333,6 +335,30 @@ namespace Codapalooza.Models
         private global::System.Boolean _Confirmed;
         partial void OnConfirmedChanging(global::System.Boolean value);
         partial void OnConfirmedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Payed
+        {
+            get
+            {
+                return _Payed;
+            }
+            set
+            {
+                OnPayedChanging(value);
+                ReportPropertyChanging("Payed");
+                _Payed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Payed");
+                OnPayedChanged();
+            }
+        }
+        private global::System.Boolean _Payed;
+        partial void OnPayedChanging(global::System.Boolean value);
+        partial void OnPayedChanged();
 
         #endregion
     

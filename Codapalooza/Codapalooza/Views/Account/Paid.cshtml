@@ -1,5 +1,24 @@
-﻿@{
+﻿@model Codapalooza.Models.Participant
+		   
+@{
     ViewBag.Title = "Paid";
 }
 
-<h2>Paid</h2>
+@if (Model.Payed)
+{
+	<h1>Paiement autorisé</h1>
+
+	<p>
+		Votre paiement a été autorisé avec succès ! Vous pouvez maintenant inscrire votre projet ou voter pour votre projet préféré.
+	</p>
+
+	<p>
+		@Html.ActionLink("Allez aux projets", "Index", "Project")
+	</p>
+}
+else
+{
+	<h1>Paiement refusé</h1>
+	<p>Une erreur est survenue lors de votre paiement.</p>
+	<p>Contactez l'administrateur pour régler le problème.</p>
+}
