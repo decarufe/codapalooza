@@ -11,8 +11,8 @@ namespace Codapalooza.Models
 		public SubscriptionService()
 		{
 			int.TryParse(ConfigurationManager.AppSettings["maximumNumberOfInscriptions"], out _maximumNumberOfInscriptions);
-      _db = new CodapaloozaEntities();
-    }
+			_db = new CodapaloozaEntities();
+		}
 
 		public int RemainingPlaces()
 		{
@@ -22,7 +22,7 @@ namespace Codapalooza.Models
 
 		public static SubscriptionService Current
 		{
-			get { return new SubscriptionService();}
+			get { return new SubscriptionService(); }
 		}
 	}
 }

@@ -7,13 +7,43 @@
 <h1>Confirmation d'inscription</h1>
 
 <p>
-Bienvenu @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName).
+	Bienvenu @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName).
 </p>
 
 @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+
 @if (Model.Confirmed)
 {
-<p>Ton inscription est maintenant confirmée.</p>
+<p>Votre adresse courriel est maintenant confirmée. Il ne reste plus qu'à payer pour compléter votre inscription.</p>
+
+@*<form id="paypalForm" name="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post">*@
+<form id="paypalForm" name="paypalForm" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+	<fieldset>
+		<input type="image" src="https://www.paypalobjects.com/WEBSCR-640-20110124-1/fr_XC/i/btn/btn_xpressCheckout.gif" name="submit" alt="Payer mon inscription" />
+		<img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+		<input type="hidden" name="cmd" value="_xclick" />
+		<input type="hidden" name="business" value="test_1305034166_biz@pyxis-tech.com" />
+		@*<input type="hidden" name="business" value="sales@pyxis-tech.com" />*@
+		<input type="hidden" name="item_name" value="Inscription au Codapalooza 2" />
+		<input type="hidden" name="amount" value="10.00" />
+		<input type="hidden" name="shipping" value="0.00" />
+		<input type="hidden" name="buyer_credit_promo_code" value="" />
+		<input type="hidden" name="buyer_credit_product_category" value="" />
+		<input type="hidden" name="buyer_credit_shipping_method" value="" />
+		<input type="hidden" name="buyer_credit_user_address_change" value="" />
+		<input type="hidden" name="first_name" value="@Model.FirstName" />
+		<input type="hidden" name="last_name" value="@Model.LastName" />
+		<input type="hidden" name="email" value="@Model.Email" />
+		<input type="hidden" name="no_shipping" value="0" />
+		<input type="hidden" name="no_note" value="1" />
+		<input type="hidden" name="currency_code" value="CAD" />
+		<input type="hidden" name="lc" value="CA" />
+		<input type="hidden" name="cs" value="0" />
+		<input type="hidden" name="page_style" value="Formation" />
+		<input type="hidden" name="return" value="@ViewBag.SuccessReturnUrl" />
+		<input type="hidden" name="cancel_return" value="@ViewBag.CancelReturnUrl" />
+	</fieldset>
+</form>
 
 <p>Je t'invite à inscrire ton projet et/ou voter pour ton préféré.</p>
 
