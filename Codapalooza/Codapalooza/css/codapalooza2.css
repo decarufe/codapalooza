@@ -222,4 +222,5 @@ input[type=submit] {
     font-weight: bold;
     border: 0;
     width: 200px;
+    cursor: pointer;
 }
