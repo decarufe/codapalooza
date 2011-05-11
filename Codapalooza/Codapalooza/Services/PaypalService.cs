@@ -7,37 +7,23 @@ namespace Codapalooza.Services
 {
 	public class PaypalService
 	{
-		private const string PaypalUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
-		//private const string PaypalUrl = "https://www.paypal.com/cgi-bin/webscr";
+		public const string PaypalUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+		public const string PaypalEmailAccount = "test_1305034166_biz@pyxis-tech.com";
+
+		//public const string PaypalUrl = "https://www.paypal.com/cgi-bin/webscr";
+		//public const string PaypalEmailAccount = "sales@pyxis-tech.com";
+
 		private const string VerifiedCode = "VERIFIED";
 
 		public bool PaymentIsCompleted(HttpRequestBase request)
 		{
-			var webRequest = (HttpWebRequest)WebRequest.Create(PaypalUrl);
+			var requestString = GetRequestString(request);
+			var webRequest = CreateWebRequest(requestString);
+			var paypalResponse = GetPaypalResponse(webRequest, requestString);
 
-			webRequest.Method = "POST";
-			webRequest.ContentType = "application/x-www-form-urlencoded";
-			var param = request.BinaryRead(HttpContext.Current.Request.ContentLength);
-			var strRequest = Encoding.ASCII.GetString(param);
-			strRequest += "&cmd=_notify-validate";
-			webRequest.ContentLength = strRequest.Length;
-
-			var streamOut = new StreamWriter(webRequest.GetRequestStream(), Encoding.ASCII);
-			streamOut.Write(strRequest);
-			streamOut.Close();
-			var streamIn = new StreamReader(webRequest.GetResponse().GetResponseStream());
-			string strResponse = streamIn.ReadToEnd();
-			streamIn.Close();
-
-			if (strResponse == VerifiedCode)
-			{
-				//check the payment_status is Completed
-				//check that txn_id has not been previously processed
-				//check that receiver_email is your Primary PayPal email
-				//check that payment_amount/payment_currency are correct
-				//process payment
-
-				var queryString = HttpUtility.ParseQueryString(strRequest);
+			if (paypalResponse == VerifiedCode)
+			{			
+				var queryString = HttpUtility.ParseQueryString(requestString);
 				var paymentStatus = queryString["payment_status"];
 
 				if (paymentStatus.Equals("Completed"))
@@ -45,6 +31,38 @@ namespace Codapalooza.Services
 			}
 
 			return false;
+		}
+
+		private string GetRequestString(HttpRequestBase request)
+		{
+			var param = request.BinaryRead(request.ContentLength);
+			var requestString = Encoding.ASCII.GetString(param);
+			requestString += "&cmd=_notify-validate";
+
+			return requestString;
+		}
+
+		private HttpWebRequest CreateWebRequest(string requestString)
+		{
+			var webRequest = (HttpWebRequest)WebRequest.Create(PaypalUrl);
+			webRequest.Method = "POST";
+			webRequest.ContentType = "application/x-www-form-urlencoded";
+			webRequest.ContentLength = requestString.Length;
+
+			return webRequest;
+		}
+
+		private string GetPaypalResponse(HttpWebRequest webRequest, string request)
+		{
+			using(var streamOut = new StreamWriter(webRequest.GetRequestStream(), Encoding.ASCII))
+			{
+				streamOut.Write(request);
+			}
+
+			using (var streamIn = new StreamReader(webRequest.GetResponse().GetResponseStream()))
+			{
+				return streamIn.ReadToEnd();
+			}
 		}
 	}
 }
