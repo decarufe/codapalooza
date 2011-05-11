@@ -1,0 +1,7 @@
+﻿@model Codapalooza.Models.Participant
+
+@{
+    ViewBag.Title = "Must pay button";
+}
+
+<a href="@Url.Action("Confirm", "Account", new { id = Model.Id })" class="inscription">Payer</a>
