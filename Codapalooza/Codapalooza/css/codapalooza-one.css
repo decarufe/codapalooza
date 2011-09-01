@@ -1,4 +1,4 @@
-﻿/* Styles gÃ©nÃ©riques */
+/* Styles génériques */
 .left {
 	float: left;
 }
@@ -16,6 +16,7 @@
 /* Styles structuraux */
 body {
 	background: transparent url(../imgs/background.jpg) repeat left top;
+	margin-top: 10px;
 	font-size: 14px;
 	font-family: Arial, Helvetica, sans-serif;
 }
@@ -25,6 +26,7 @@ body {
 }
 /* Styles Menu */
 #menu {
+	margin-top: 15px;
 }
 #menu ul {
 	width: 960px;
@@ -139,6 +141,7 @@ ul.team-members li {
 }
 ul.team-members li img {
 	border: 10px solid #ddd;
+
 }
 ul.team-members li span {
 	width: 250px;
@@ -154,7 +157,7 @@ ul.team-members li span {
 #content {
 	background: #faf9f5;
 	width: 920px;
-	margin: auto;
+	margin: 15px auto;
 	padding: 50px 20px;
 	min-height: 350px;
 }
